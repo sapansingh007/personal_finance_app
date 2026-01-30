@@ -13,7 +13,6 @@ A comprehensive Personal Finance Dashboard app built with Flutter that displays 
 
 ### Enhanced Features
 - **Light/Dark Mode**: Complete theme support with persistent user preferences
-- **Shimmer Loading**: Beautiful skeleton loading effects during data fetching
 - **Smooth Animations**: Card tap animations and navigation transitions
 - **Static Charts**: Simple bar chart for weekly financial overview
 - **Responsive Design**: Optimized for mobile devices with proper overflow handling
