@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/controllers/theme_controller.dart';
 import '../../core/widgets/primary_button.dart';
 import 'transactions_controller.dart';
 
@@ -10,11 +11,13 @@ class FilterBottomSheet extends GetView<TransactionsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
+    return GetBuilder<ThemeController>(
+      builder: (themeController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Get.theme.colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -24,7 +27,7 @@ class FilterBottomSheet extends GetView<TransactionsController> {
             height: 4,
             margin: const EdgeInsets.symmetric(vertical: 12),
             decoration: BoxDecoration(
-              color: AppColors.textTertiary,
+              color: Get.theme.colorScheme.onSurface.withOpacity(0.3),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -94,6 +97,8 @@ class FilterBottomSheet extends GetView<TransactionsController> {
           const SizedBox(height: 24),
         ],
       ),
+        );
+      }
     );
   }
 
@@ -202,13 +207,13 @@ class FilterBottomSheet extends GetView<TransactionsController> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected 
-              ? (color ?? AppColors.primary).withOpacity(0.1)
-              : AppColors.surfaceVariant,
+              ? (color ?? Get.theme.colorScheme.primary).withOpacity(0.1)
+              : Get.theme.colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected 
-                ? (color ?? AppColors.primary)
-                : AppColors.outline,
+                ? (color ?? Get.theme.colorScheme.primary)
+                : Get.theme.colorScheme.outline,
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -234,11 +239,11 @@ class FilterBottomSheet extends GetView<TransactionsController> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: isSelected 
-              ? AppColors.primary.withOpacity(0.1)
-              : AppColors.surfaceVariant,
+              ? Get.theme.colorScheme.primary.withOpacity(0.1)
+              : Get.theme.colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? AppColors.primary : AppColors.outline,
+            color: isSelected ? Get.theme.colorScheme.primary : Get.theme.colorScheme.outline,
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -246,7 +251,7 @@ class FilterBottomSheet extends GetView<TransactionsController> {
           children: [
             Icon(
               isSelected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-              color: isSelected ? AppColors.primary : AppColors.textTertiary,
+              color: isSelected ? Get.theme.colorScheme.primary : Get.theme.colorScheme.onSurface.withOpacity(0.4),
             ),
             const SizedBox(width: 12),
             Text(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/controllers/theme_controller.dart';
 import '../../core/widgets/primary_button.dart';
 import 'login_controller.dart';
 
@@ -10,16 +11,15 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx((){
-     controller.isLoading.value;
-      return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+    return GetBuilder<ThemeController>(
+      builder: (themeController) {
+        return Obx(() {
+          controller.isLoading.value;
+          return Scaffold(
+            backgroundColor: Get.theme.colorScheme.background,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
               const SizedBox(height: 60),
               
               // App logo/illustration
@@ -28,7 +28,7 @@ class LoginView extends GetView<LoginController> {
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
+                    color: Get.theme.colorScheme.primary,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: const Icon(
@@ -150,10 +150,10 @@ class LoginView extends GetView<LoginController> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.primaryLight.withOpacity(0.1),
+                        color: Get.theme.colorScheme.primary.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: AppColors.primaryLight.withOpacity(0.3),
+                          color: Get.theme.colorScheme.primary.withOpacity(0.3),
                         ),
                       ),
                       child: Column(
@@ -164,13 +164,13 @@ class LoginView extends GetView<LoginController> {
                               Icon(
                                 Icons.info_outline,
                                 size: 20,
-                                color: AppColors.primary,
+                                color: Get.theme.colorScheme.primary,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 'Demo Credentials',
                                 style: AppTextStyles.label.copyWith(
-                                  color: AppColors.primary,
+                                  color: Get.theme.colorScheme.primary,
                                 ),
                               ),
                             ],
@@ -192,7 +192,8 @@ class LoginView extends GetView<LoginController> {
           ),
         ),
       ),
-    );
+        );
+      });
     });
   }
 }

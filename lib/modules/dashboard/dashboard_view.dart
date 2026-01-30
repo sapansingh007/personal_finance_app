@@ -26,7 +26,10 @@ class DashboardView extends GetView<DashboardController> {
                 icon: Icon(
                   themeController.isDarkMode ? Icons.light_mode : Icons.dark_mode,
                 ),
-                onPressed: themeController.toggleTheme,
+                onPressed: () {
+                  themeController.toggleTheme();
+                  controller.loadDashboardData();
+                },
                 tooltip: 'Toggle Theme',
               ),
               IconButton(

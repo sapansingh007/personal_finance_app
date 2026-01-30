@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../core/controllers/theme_controller.dart';
 import '../../core/widgets/transaction_tile.dart';
 import '../../core/widgets/loading_view.dart';
 import '../../core/widgets/empty_state.dart';
@@ -13,26 +14,28 @@ class TransactionsView extends GetView<TransactionsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Transactions'),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.filter_list),
-            onSelected: (value) {
-              if (value == 'filter') {
-                controller.showFilterBottomSheet();
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'filter',
-                child: Text('Filter'),
+    return GetBuilder<ThemeController>(
+      builder: (themeController) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Transactions'),
+            actions: [
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.filter_list),
+                onSelected: (value) {
+                  if (value == 'filter') {
+                    controller.showFilterBottomSheet();
+                  }
+                },
+                itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 'filter',
+                    child: Text('Filter'),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
       body: Obx((){
         controller.isLoading.value;
         if (controller.isLoading.value) {
@@ -59,17 +62,21 @@ class TransactionsView extends GetView<TransactionsController> {
           ],
         );
       }),
+        );
+      }
     );
   }
 
   Widget _buildSearchAndFilterSection() {
-    return Container(
+    return Obx(() {
+      controller.isLoading.value;
+      return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: Get.theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: AppColors.outline,
+            color: Get.theme.colorScheme.outline,
             width: 1,
           ),
         ),
@@ -125,6 +132,7 @@ class TransactionsView extends GetView<TransactionsController> {
         ],
       ),
     );
+    });
   }
 
   Widget _buildStatisticsSection() {
